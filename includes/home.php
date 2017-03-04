@@ -16,50 +16,52 @@
     width: 300px;
     height: 300px;
     /*border: 3px solid #000;*/
-  }
+}
+
 .timeline-Footer.u-cf {
   display: none !important;
 }
+
+#gas {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    width: 159px;
+    height: 327px;
+    /*border: 3px solid #000;*/
+}
+ul {
+    list-style-type: none;
+}
+
+.gas_title {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#gas_header {
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+}
 </style>
 
-<!--/* - HTML Section - */ -->
+<!--/* - HTML Section - */ href="https://twitter.com/search?q=%23orlando%20%23traffic" -->
 <div id="map"></div>
 <div id="twitter">
   <a class="twitter-timeline"
   target="_blank"
-  href="https://twitter.com/search?q=%23orlando%20%23traffic"
+  href="https://twitter.com/search?q=%23oscars"
   data-widget-id="838107282277793793">Tweets about #orlando #traffic</a>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
+
 <div id="gas">
-  Gas prices go here
+  <span id="gas_header">Local Gas</span>
+  <div id="stations"></div>
 </div>
 
 <!--/* - JavaScript Section - */ -->
-<script>
-jQuery();
-google.maps.event.addDomListener( window, 'load', initMap );
-
-var map;
-function initMap() {
-  // - Initialize Map
-  map = new google.maps.Map(document.getElementById('map'), {
-    //center: {lat: -34.397, lng: 150.644},
-    center: {lat: 28.538335, lng: -81.379236},
-    zoom: 13
-  });
-
-  // - Add Traffic Layer
-  var trafficLayer = new google.maps.TrafficLayer();
-  trafficLayer.setMap(map);
-
-  // - Display the twitter feed
-  var twitter = document.getElementById('twitter');
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(twitter);
-
-  // - Display the twitter feed
-  // var gas = document.getElementById('gas');
-  // map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(gas);
-}
-</script>
+<script src="/wp-content/plugins/hypr-local/js/home.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAw6mTI47cPQ9j9hYcQFnhagDKYOayRniw&callback=initMap&libraries=places" async defer></script>
