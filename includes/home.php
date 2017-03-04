@@ -45,9 +45,39 @@ ul {
   font-weight: bold;
   color: red;
 }
+
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 10px;
+}
+#floating-panel {
+  background-color: #fff;
+  border: 1px solid #999;
+  left: 25%;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  z-index: 5;
+}
 </style>
 
 <!--/* - HTML Section - */ href="https://twitter.com/search?q=%23orlando%20%23traffic" -->
+<div id="floating-panel">
+  <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+  <button onclick="changeGradient()">Change gradient</button>
+  <button onclick="changeRadius()">Change radius</button>
+  <button onclick="changeOpacity()">Change opacity</button>
+</div>
+
 <div id="map"></div>
 <div id="twitter">
   <a class="twitter-timeline"
