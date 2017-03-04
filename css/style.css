@@ -1,0 +1,53 @@
+#map {
+  height: 765px;
+  width: 100%;
+}
+
+#twitter {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 5px;
+    margin: 10px;
+    width: 300px;
+    height: 300px;
+    /*border: 3px solid #000;*/
+}
+
+.timeline-Footer.u-cf {
+  display: none !important;
+}
+
+#gas {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 10px;
+    margin: 10px;
+    width: 210px;
+    height: 651px;
+    /*border: 3px solid #000;*/
+}
+ul {
+    list-style-type: none;
+}
+
+.gas_title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#gas_header, #stories_header {
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+}
+
+.gas_price {
+  color: white;
+  background-color: limegreen;
+  padding: 2px;
+}
+
+.station_address {
+  color: gray;
+  font-size: 13px;
+}

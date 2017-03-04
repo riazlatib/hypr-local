@@ -12,11 +12,6 @@ function initMap() {
     zoom: 13
   });
 
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
-    map: map
-  });
-
   // - Add Traffic Layer
   var trafficLayer = new google.maps.TrafficLayer();
   trafficLayer.setMap(map);
@@ -30,59 +25,6 @@ function initMap() {
   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(gas);
 }
 
-function toggleHeatmap() {
-  heatmap.setMap(heatmap.getMap() ? null : map);
-}
-
-function changeGradient() {
-  var gradient = [
-    'rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-  ]
-  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-}
-
-function changeRadius() {
-  heatmap.set('radius', heatmap.get('radius') ? null : 20);
-}
-
-function changeOpacity() {
-  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-}
-
-function getPoints() {
-  return [
-    new google.maps.LatLng(37.782551, -122.445368)
-  ]
-}
-
-function eqfeed_callback(results) {
-  var heatmapData = [];
-  for (var i = 0; i < results.features.length; i++) {
-    var coords = results.features[i].geometry.coordinates;
-    var coords = [28.538335, -81.379236];
-    var latLng = new google.maps.LatLng(coords[1], coords[0]);
-    heatmapData.push(latLng);
-  }
-  var heatmap = new google.maps.visualization.HeatmapLayer({
-    data: heatmapData,
-    dissipating: false,
-    map: map
-  });
-}
-
 // Load the gas prices
 function gas() {
 	var result = jQuery.ajax({
@@ -94,16 +36,36 @@ function gas() {
       for (var i = 0; i < num_gas_stations_to_display; i++) {
         if ((data.stations[i].reg_price != 'N/A') && (data.stations[i].station != 'Unbranded')) {
           gas_stations = gas_stations + '<li>';
-          gas_stations = gas_stations + '<span class="gas_title">' + data.stations[i].station + '</span>';
+          gas_stations = gas_stations + '<span class="gas_title">' + data.stations[i].station + '</span> ' + '<span class="gas_price">$ ' + data.stations[i].reg_price + '</span>';
           gas_stations = gas_stations + '<br />';
-          gas_stations = gas_stations + data.stations[i].address;
-          gas_stations = gas_stations + '<br />';
-          gas_stations = gas_stations + '$ ' + data.stations[i].reg_price;
+          gas_stations = gas_stations + '<span class="station_address">' + data.stations[i].address + '</span>';
           gas_stations = gas_stations + '</li>';
         }
       }
       gas_stations = gas_stations + '</ul>';
       jQuery('#stations').html(gas_stations);
+      jQuery('#stations').append('<hr>');
+      jQuery('#stations').append('<span id="stories_header">Orlando News</span>');
+      var result = jQuery.ajax({
+    		url : "https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2Forlandosentinel%2Fnews",
+    		type: "POST",
+    		success: function(data) {
+          var stories = '<ul>'
+          var num_stories_to_display = 10;
+          for (var i = 0; i < num_stories_to_display; i++) {
+            stories = stories + '<li>';
+            stories = stories + '<span class="story_title">' + data.items[i].title + '</span>';
+            stories = stories + '</li>';
+          }
+          stories = stories + '</ul>';
+          jQuery('#stations').append(stories);
+        },
+        error: function (errorThrown) {
+    		  //error - response
+    		  console.log('There has been an error: ' + errorThrown);
+    		}
+      });
+      //https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2Forlandosentinel%2Fnews
 		},
 		error: function (errorThrown) {
 		  //error - response
