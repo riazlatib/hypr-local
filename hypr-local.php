@@ -12,9 +12,9 @@ License: GPL2
 // Add Dashboard Menu Page
  add_action( 'admin_menu', 'hypr_local' );
 
- function hypr_local(){
-   add_dashboard_page( 'Hypr-Local', 'HYPR', 'manage_options', 'hypr_local', 'custom_menu_page', plugins_url( '/images/icon.png' ), 1 );
- }
+function hypr_local(){
+ add_dashboard_page( 'Hypr-Local', 'HYPR', 'manage_options', 'hypr_local', 'custom_menu_page', plugins_url( '/images/icon.png' ), 1 );
+}
 
 function custom_menu_page(){
   include 'includes/home.php';
